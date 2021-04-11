@@ -64,6 +64,13 @@ void loop() {
   strcat (buf2, buf3);
 
   u8x8.clear();
-  u8x8.drawString(1 + 2 * (3 - (int)log10(lux)), 0, buf2);
+  // The screen is 32 x 128 pixels, in the 8*8 library this results in 32/4 = 4 lines (0 - 3) and 128/8 = 16 columns (0 - 15).
+  // The font uses 2*4 squares of 8*8 pixels. This results in 1 line (32/4/8 = 1) and 8 characters (128/2/8 = 8)
+  // The 8 characters are sufficient for showing the maximum value of "65535_Lx".  
+  // The string is positioned at the right of the screen. The indent depends on the amount of figures in the value
+  // The number of figures is derrived from the 10Log of the value (0 - 65535), which can have 1 - 5 figures.
+  // The font has 2 positions for one character, that's why the outcome is multiplied by 2. 
+  // A value of 5 figures starts at column 0 (most left), a value of 2 figures starts at column 3*2 = column 6 
+  u8x8.drawString(2 * (5 - (int)log10(lux)), 0, buf2); 
   delay(1000);
 }
