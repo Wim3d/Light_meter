@@ -76,9 +76,9 @@ void loop() {
     u8x8.drawString(2 * (2 - (int)log10(lux)), 0, buf);
   }
   else {
-    uint32_t lux_rounded0 = lux * (int)100 / 100;
+    long lux_rounded0 = lux * (int)100 / 100;
     char buf2[20];
-    sprintf(buf2, "%d", lux_rounded0);
+    sprintf(buf2, "%ld", lux_rounded0);
     char buf3[20] = " Lx";
     strcat (buf2, buf3);
     u8x8.drawString(2 * (4 - (int)log10(lux)), 0, buf2);
